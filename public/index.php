@@ -5,6 +5,7 @@
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
+// TEST AJA
 define('LARAVEL_START', microtime(true));
 
 /*
