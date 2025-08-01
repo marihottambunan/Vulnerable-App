@@ -33,7 +33,7 @@ class LoginController extends Controller
             if (auth()->user()->role_id === 1) {
                 return redirect()->intended('/dashboard/admin');
             } else if (auth()->user()->role_id === 2) {
-                return redirect()->intended('/dashboard/bendahara');
+                return redirect()->intended('/dashboard/finance_manager');
             } else {
                 return redirect()->intended('/dashboard/karyawan');
             }

@@ -3,7 +3,7 @@
     @if (auth()->user()->role_id == 1)
         <a class="navbar-brand ps-3" href="/dashboard/admin">PT Wide Technologies</a>
     @elseif (auth()->user()->role_id == 2)
-        <a class="navbar-brand ps-3" href="/dashboard/bendahara">PT Wide Technologies</a>
+        <a class="navbar-brand ps-3" href="/dashboard/finance_manager">PT Wide Technologies</a>
     @else
         <a class="navbar-brand ps-3" href="/dashboard/karyawan">PT Wide Technologies</a>
     @endif

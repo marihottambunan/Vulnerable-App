@@ -19,7 +19,7 @@
                 <img class="mb-4" src="{{ URL::asset('img/transparan-logo-name.png') }}" alt="icons" width="200" height="200">
             </div> --}}
 
-            <h1 class="h3 fw-normal mb-5">CV. CAHAYA BINTANG</h1>
+            <h1 class="h3 fw-normal mb-5">PT Wide Technologies</h1>
 
             @if (session()->has('error'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -55,7 +55,7 @@
 
             <div class="text-center">
                 {{-- <a href="/register" class="mt-3 d-block">Register</a> --}}
-                <p class="mt-5 mb-3 text-body-secondary">Copyright &copy; CV. Cahaya Bintang {{ date('Y') }}</p>
+                <p class="mt-5 mb-3 text-body-secondary">Copyright &copy; PT Wide Technologies {{ date('Y') }}</p>
             </div>
         </main>
 

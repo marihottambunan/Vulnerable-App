@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsBendahara
+class Isfinance_manager
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class IsBendahara
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Hanya bendahara (role_id = 2) yang boleh akses
+        // Hanya finance_manager (role_id = 2) yang boleh akses
         if (auth()->guest() || auth()->user()->role_id != 2) {
             abort(403);
         }

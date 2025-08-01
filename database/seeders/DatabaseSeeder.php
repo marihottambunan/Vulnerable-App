@@ -25,13 +25,13 @@ class DatabaseSeeder extends Seeder
  
  
         Role::create([
-            'role_name' => 'Project Manager'      // id = 1
+            'role_name' => 'Admin'      // id = 1
         ]);
         Role::create([
-            'role_name' => 'Developer'  // id = 2
+            'role_name' => 'Finance Manager'  // id = 2
         ]);
         Role::create([
-            'role_name' => 'IT Support'   // id = 3
+            'role_name' => 'karyawan'   // id = 3
         ]);
  
         Category::create([
@@ -162,9 +162,9 @@ class DatabaseSeeder extends Seeder
         ]);
         User::create([
             'employee_id'   => 2,   // Umaya Hutagalung
-            'email'         => 'bendahara@gmail.com',
+            'email'         => 'finance_manager@gmail.com',
             'password'      => 'test123', // password
-            'role_id'       => 2,   // role bendahara
+            'role_id'       => 2,   // role finance_manager
         ]);
         User::create([
             'employee_id'   => 3,   // Edi Ardianto

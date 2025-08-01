@@ -5,7 +5,7 @@
 
                 {{-- <div class="sb-sidenav-menu-heading">Core</div> --}}
 
-                <div class="ms-3 mt-1 fs-6 fw-bold {{ Request::is('dashboard/admin') || Request::is('dashboard/bendahara') || Request::is('dashboard/karyawan') ? 'text-light' : '' }}">DASHBOARD</div>
+                <div class="ms-3 mt-1 fs-6 fw-bold {{ Request::is('dashboard/admin') || Request::is('dashboard/finance_manager') || Request::is('dashboard/karyawan') ? 'text-light' : '' }}">DASHBOARD</div>
 
                 {{-- Jika bukan Admin maka linknya berbeda --}}
                 @if (auth()->user()->role_id == 1)
@@ -14,7 +14,7 @@
                         Dashboard
                     </a>
                 @elseif (auth()->user()->role_id == 2)
-                    <a class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}" href="/dashboard/bendahara">
+                    <a class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}" href="/dashboard/finance_manager">
                         <div class="sb-nav-link-icon"><i class="fa-fw fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
@@ -40,7 +40,7 @@
                 {{-- END OF TRANSAKSI --}}
 
 
-                {{-- MENU SIDEBAR INI TAMPIL UNTUK ROLE ADMIN & BENDAHARA --}}
+                {{-- MENU SIDEBAR INI TAMPIL UNTUK ROLE ADMIN & finance_manager --}}
                 @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
                     {{-- MASTER DATA --}}
                     @if (Request::is('users*') || Request::is('hutang*') || Request::is('gaji*') || Request::is('karyawan*'))

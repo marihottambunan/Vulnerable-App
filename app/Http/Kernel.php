@@ -66,7 +66,7 @@ class Kernel extends HttpKernel
 
         // Middleware untuk hak akses admin
         'admin' => \App\Http\Middleware\IsAdmin::class,
-        'bendahara' => \App\Http\Middleware\IsBendahara::class,
+        'finance_manager' => \App\Http\Middleware\Isfinance_manager::class,
         'karyawan' => \App\Http\Middleware\IsKaryawan::class,
     ];
 }

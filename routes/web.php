@@ -34,9 +34,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 // Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 // Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
-// Route Halaman Admin & Bendahara
+// Route Halaman Admin & finance_manager
 Route::get('/dashboard/admin', [AdminController::class, 'index'])->middleware('admin');
-Route::get('/dashboard/bendahara', [PegawaiController::class, 'index'])->middleware('bendahara');
+Route::get('/dashboard/finance_manager', [PegawaiController::class, 'index'])->middleware('finance_manager');
 
 
 /**
@@ -57,7 +57,7 @@ Route::post('/dashboard/karyawan/change-password', [DashboardKaryawanController:
 
 
 /**
- * Route Profile & Ganti Password (Admin & Bendahara)
+ * Route Profile & Ganti Password (Admin & finance_manager)
  * 
  */
 Route::get('/profile', [AdminController::class, 'profile'])->middleware('auth');

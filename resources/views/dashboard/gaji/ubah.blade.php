@@ -11,7 +11,7 @@
             @if (auth()->user()->role_id == 1)
                 <li class="breadcrumb-item"><a href="/dashboard/admin">Dashboard</a></li>
             @else
-                <li class="breadcrumb-item"><a href="/dashboard/bendahara">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="/dashboard/finance_manager">Dashboard</a></li>
             @endif
             <li class="breadcrumb-item"><a href="/gaji-karyawan">Data Penggajian Karyawan</a></li>
             <li class="breadcrumb-item"><a href="/gaji">Data Gaji & Jabatan</a></li>
