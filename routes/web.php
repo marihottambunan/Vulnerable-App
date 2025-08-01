@@ -36,24 +36,24 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
 // Route Halaman Admin & Bendahara
 Route::get('/dashboard/admin', [AdminController::class, 'index'])->middleware('admin');
-Route::get('/dashboard/bendahara', [PegawaiController::class, 'index'])->middleware('auth');
+Route::get('/dashboard/bendahara', [PegawaiController::class, 'index'])->middleware('bendahara');
 
 
 /**
  * Route Role Karyawan
  * 
  */
-Route::get('/dashboard/karyawan', [DashboardKaryawanController::class, 'index'])->middleware('auth');
-Route::get('/dashboard/karyawan/profile', [DashboardKaryawanController::class, 'myProfile'])->middleware('auth');
-Route::get('/dashboard/karyawan/profile/edit-biodata', [DashboardKaryawanController::class, 'editBiodata'])->middleware('auth');
-Route::put('/dashboard/karyawan/profile/edit-biodata/{id}', [DashboardKaryawanController::class, 'updateBiodata'])->middleware('auth');
-Route::get('/dashboard/karyawan/profile/edit-account', [DashboardKaryawanController::class, 'editAccount'])->middleware('auth');
-Route::put('/dashboard/karyawan/profile/edit-account/{id}', [DashboardKaryawanController::class, 'updateAccount'])->middleware('auth');
-Route::get('/dashboard/karyawan/gaji', [DashboardKaryawanController::class, 'mySalary'])->middleware('auth');
-Route::get('/dashboard/karyawan/hutang', [DashboardKaryawanController::class, 'myDebt'])->middleware('auth');
-Route::post('/dashboard/karyawan/hutang', [DashboardKaryawanController::class, 'pinjam'])->middleware('auth');
-Route::get('/dashboard/karyawan/change-password', [DashboardKaryawanController::class, 'editPassword'])->middleware('auth');
-Route::post('/dashboard/karyawan/change-password', [DashboardKaryawanController::class, 'updatePassword'])->middleware('auth');
+Route::get('/dashboard/karyawan', [DashboardKaryawanController::class, 'index'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/profile', [DashboardKaryawanController::class, 'myProfile'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/profile/edit-biodata', [DashboardKaryawanController::class, 'editBiodata'])->middleware('karyawan');
+Route::put('/dashboard/karyawan/profile/edit-biodata/{id}', [DashboardKaryawanController::class, 'updateBiodata'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/profile/edit-account', [DashboardKaryawanController::class, 'editAccount'])->middleware('karyawan');
+Route::put('/dashboard/karyawan/profile/edit-account/{id}', [DashboardKaryawanController::class, 'updateAccount'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/gaji', [DashboardKaryawanController::class, 'mySalary'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/hutang', [DashboardKaryawanController::class, 'myDebt'])->middleware('karyawan');
+Route::post('/dashboard/karyawan/hutang', [DashboardKaryawanController::class, 'pinjam'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/change-password', [DashboardKaryawanController::class, 'editPassword'])->middleware('karyawan');
+Route::post('/dashboard/karyawan/change-password', [DashboardKaryawanController::class, 'updatePassword'])->middleware('karyawan');
 
 
 /**
