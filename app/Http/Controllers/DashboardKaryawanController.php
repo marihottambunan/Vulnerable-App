@@ -15,13 +15,17 @@ class DashboardKaryawanController extends Controller
      * Method Controller untuk Menu Dashboard Karyawan
      * 
      */
-    public function index()
+    public function index($id)
     {
+
+        if (auth()->user()->employee_id != $id) {
+        abort(403, 'Akses ditolak');
+    }
         return view('dashboard-karyawan.index', [
             'title'          => 'Dashboard Karyawan',
-            'employee'       => Employee::find(auth()->user()->employee_id),
-            'employeeSalary' => EmployeeSalary::where('karyawan_id', auth()->user()->employee_id)->get(),
-            'employeeDebts'  => Debt::where('employee_id', auth()->user()->employee_id)->get()
+            'employee'       => Employee::find($id),
+            'employeeSalary' => EmployeeSalary::where('karyawan_id', $id)->get(),
+            'employeeDebts'  => Debt::where('employee_id', $id)->get()
         ]);
     }
 

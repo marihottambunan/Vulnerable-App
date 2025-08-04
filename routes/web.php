@@ -36,14 +36,14 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
 // Route Halaman Admin & finance_manager
 Route::get('/dashboard/admin', [AdminController::class, 'index'])->middleware('admin');
-Route::get('/dashboard/finance_manager', [PegawaiController::class, 'index'])->middleware('finance_manager');
+Route::get('/dashboard/finance_manager/{id}', [PegawaiController::class, 'index'])->middleware('finance_manager');
 
 
 /**
  * Route Role Karyawan
  * 
  */
-Route::get('/dashboard/karyawan', [DashboardKaryawanController::class, 'index'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/{id}', [DashboardKaryawanController::class, 'index'])->middleware('karyawan');
 Route::get('/dashboard/karyawan/profile', [DashboardKaryawanController::class, 'myProfile'])->middleware('karyawan');
 Route::get('/dashboard/karyawan/profile/edit-biodata', [DashboardKaryawanController::class, 'editBiodata'])->middleware('karyawan');
 Route::put('/dashboard/karyawan/profile/edit-biodata/{id}', [DashboardKaryawanController::class, 'updateBiodata'])->middleware('karyawan');

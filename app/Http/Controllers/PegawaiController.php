@@ -11,8 +11,15 @@ use Carbon\Carbon;
 
 class PegawaiController extends Controller
 {
-    public function index()
+    public function index($id)
     {
+
+     // Hanya user dengan role_id 2 (finance_manager) yang boleh akses
+    if (auth()->user()->role_id !== 2 || auth()->user()->employee_id != $id) {
+        abort(403, 'Akses ditolak');
+    }
+
+    
         // Income - Pemasukan - Pendapatan
         $dailyIncome = Income::whereDate('tanggal', Carbon::today())->sum('nominal');
         $weeklyIncome = Income::whereBetween('tanggal', [

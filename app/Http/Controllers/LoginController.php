@@ -31,11 +31,11 @@ class LoginController extends Controller
 
             // jika akun sudah diaktivasi, cek role
             if (auth()->user()->role_id === 1) {
-                return redirect()->intended('/dashboard/admin');
+                return redirect()->intended('/dashboard/admin/'. auth()->user()->employee_id);
             } else if (auth()->user()->role_id === 2) {
-                return redirect()->intended('/dashboard/finance_manager');
+                return redirect()->intended('/dashboard/finance_manager/'. auth()->user()->employee_id);
             } else {
-                return redirect()->intended('/dashboard/karyawan');
+                return redirect()->intended('/dashboard/karyawan/'. auth()->user()->employee_id);
             }
         } else {
             return back()->with('error', 'Email atau Password salah');
