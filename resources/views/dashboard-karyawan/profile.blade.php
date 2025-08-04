@@ -7,7 +7,7 @@
     {{-- Breadcrumb --}}
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-3">
-            <li class="breadcrumb-item"><a href="/dashboard/karyawan">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/dashboard/karyawan/{{ auth()->user()->employee_id }}">Dashboard</a></li>
             <li class="breadcrumb-item active">My Profile</li>
         </ol>
     </nav>

@@ -35,7 +35,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 // Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
 // Route Halaman Admin & finance_manager
-Route::get('/dashboard/admin', [AdminController::class, 'index'])->middleware('admin');
+Route::get('/dashboard/admin/{id}', [AdminController::class, 'index'])->middleware('admin');
 Route::get('/dashboard/finance_manager/{id}', [PegawaiController::class, 'index'])->middleware('finance_manager');
 
 
@@ -44,16 +44,16 @@ Route::get('/dashboard/finance_manager/{id}', [PegawaiController::class, 'index'
  * 
  */
 Route::get('/dashboard/karyawan/{id}', [DashboardKaryawanController::class, 'index'])->middleware('karyawan');
-Route::get('/dashboard/karyawan/profile', [DashboardKaryawanController::class, 'myProfile'])->middleware('karyawan');
-Route::get('/dashboard/karyawan/profile/edit-biodata', [DashboardKaryawanController::class, 'editBiodata'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/profile/{id}', [DashboardKaryawanController::class, 'myProfile'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/profile/edit-biodata/{id}', [DashboardKaryawanController::class, 'editBiodata'])->middleware('karyawan');
 Route::put('/dashboard/karyawan/profile/edit-biodata/{id}', [DashboardKaryawanController::class, 'updateBiodata'])->middleware('karyawan');
-Route::get('/dashboard/karyawan/profile/edit-account', [DashboardKaryawanController::class, 'editAccount'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/profile/edit-account/{id}', [DashboardKaryawanController::class, 'editAccount'])->middleware('karyawan');
 Route::put('/dashboard/karyawan/profile/edit-account/{id}', [DashboardKaryawanController::class, 'updateAccount'])->middleware('karyawan');
-Route::get('/dashboard/karyawan/gaji', [DashboardKaryawanController::class, 'mySalary'])->middleware('karyawan');
-Route::get('/dashboard/karyawan/hutang', [DashboardKaryawanController::class, 'myDebt'])->middleware('karyawan');
-Route::post('/dashboard/karyawan/hutang', [DashboardKaryawanController::class, 'pinjam'])->middleware('karyawan');
-Route::get('/dashboard/karyawan/change-password', [DashboardKaryawanController::class, 'editPassword'])->middleware('karyawan');
-Route::post('/dashboard/karyawan/change-password', [DashboardKaryawanController::class, 'updatePassword'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/gaji/{id}', [DashboardKaryawanController::class, 'mySalary'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/hutang/{id}', [DashboardKaryawanController::class, 'myDebt'])->middleware('karyawan');
+Route::post('/dashboard/karyawan/hutang/', [DashboardKaryawanController::class, 'pinjam'])->middleware('karyawan');
+Route::get('/dashboard/karyawan/change-password/{id}', [DashboardKaryawanController::class, 'editPassword'])->middleware('karyawan');
+Route::post('/dashboard/karyawan/change-password/', [DashboardKaryawanController::class, 'updatePassword'])->middleware('karyawan');
 
 
 /**
@@ -78,14 +78,14 @@ Route::post('/profile/ganti-password', [AdminController::class, 'updatePassword'
 /
 */
 
-Route::resource('/users', UserController::class)->middleware('auth');
-Route::resource('/kategori', KategoriController::class)->middleware('auth');
-Route::resource('/data/pemasukan', IncomeController::class)->middleware('auth');
-Route::resource('/data/pengeluaran', OutcomeController::class)->middleware('auth');
-Route::resource('/hutang', DebtController::class)->middleware('auth');
-Route::resource('/gaji', SalaryController::class)->middleware('auth');
+Route::resource('/users', UserController::class)->middleware('admin');
+Route::resource('/kategori', KategoriController::class)->middleware('admin');
+Route::resource('/data/pemasukan', IncomeController::class)->middleware('admin_finance');
+Route::resource('/data/pengeluaran', OutcomeController::class)->middleware('admin_finance');
+Route::resource('/hutang', DebtController::class)->middleware('admin_finance');
+Route::resource('/gaji', SalaryController::class)->middleware('admin_finance');
 Route::resource('/karyawan', EmployeeController::class)->middleware('admin');
-Route::resource('/gaji-karyawan', EmployeeSalaryController::class)->middleware('auth');
+Route::resource('/gaji-karyawan', EmployeeSalaryController::class)->middleware('admin_finance');
 
 
 /*
@@ -99,40 +99,40 @@ Route::resource('/gaji-karyawan', EmployeeSalaryController::class)->middleware('
 */
 
 // Pemasukan - Pengeluaran / Income - Outcome
-Route::get('/cetak-laporan', [CetakController::class, 'index'])->middleware('auth');
-Route::get('/cetak-laporan/print-income', [CetakController::class, 'printIncome'])->middleware('auth');
-Route::get('/cetak-laporan/print-outcome', [CetakController::class, 'printOutcome'])->middleware('auth');
-Route::get('/cetak-laporan/pdf-income', [CetakController::class, 'createPDFIncome'])->middleware('auth');
-Route::get('/cetak-laporan/pdf-outcome', [CetakController::class, 'createPDFOutcome'])->middleware('auth');
-Route::get('/cetak-laporan/excel-income', [CetakController::class, 'excelIncome'])->middleware('auth');
-Route::get('/cetak-laporan/excel-outcome', [CetakController::class, 'excelOutcome'])->middleware('auth');
+Route::get('/cetak-laporan', [CetakController::class, 'index'])->middleware('admin_finance');
+Route::get('/cetak-laporan/print-income', [CetakController::class, 'printIncome'])->middleware('admin_finance');
+Route::get('/cetak-laporan/print-outcome', [CetakController::class, 'printOutcome'])->middleware('admin_finance');
+Route::get('/cetak-laporan/pdf-income', [CetakController::class, 'createPDFIncome'])->middleware('admin_finance');
+Route::get('/cetak-laporan/pdf-outcome', [CetakController::class, 'createPDFOutcome'])->middleware('admin_finance');
+Route::get('/cetak-laporan/excel-income', [CetakController::class, 'excelIncome'])->middleware('admin_finance');
+Route::get('/cetak-laporan/excel-outcome', [CetakController::class, 'excelOutcome'])->middleware('admin_finance');
 
-Route::get('/cetak-laporan/print-semua-pemasukan', [CetakController::class, 'printAllIncome'])->middleware('auth');
-Route::get('/cetak-laporan/pdf-semua-pemasukan', [CetakController::class, 'allPDFIncome'])->middleware('auth');
-Route::get('/cetak-laporan/excel-semua-pemasukan', [CetakController::class, 'allExcelIncome'])->middleware('auth');
+Route::get('/cetak-laporan/print-semua-pemasukan', [CetakController::class, 'printAllIncome'])->middleware('admin_finance');
+Route::get('/cetak-laporan/pdf-semua-pemasukan', [CetakController::class, 'allPDFIncome'])->middleware('admin_finance');
+Route::get('/cetak-laporan/excel-semua-pemasukan', [CetakController::class, 'allExcelIncome'])->middleware('admin_finance');
 
-Route::get('/cetak-laporan/print-semua-pengeluaran', [CetakController::class, 'printAllOutcome'])->middleware('auth');
-Route::get('/cetak-laporan/pdf-semua-pengeluaran', [CetakController::class, 'allPDFOutcome'])->middleware('auth');
-Route::get('/cetak-laporan/excel-semua-pengeluaran', [CetakController::class, 'allExcelOutcome'])->middleware('auth');
+Route::get('/cetak-laporan/print-semua-pengeluaran', [CetakController::class, 'printAllOutcome'])->middleware('admin_finance');
+Route::get('/cetak-laporan/pdf-semua-pengeluaran', [CetakController::class, 'allPDFOutcome'])->middleware('admin_finance');
+Route::get('/cetak-laporan/excel-semua-pengeluaran', [CetakController::class, 'allExcelOutcome'])->middleware('admin_finance');
 
 // Berdasarkan Bulan & Tahun
-Route::get('/cetak-print-laporan-income-bulan', [CetakController::class, 'getDataIncomeByMonth'])->middleware('auth');
+Route::get('/cetak-print-laporan-income-bulan', [CetakController::class, 'getDataIncomeByMonth'])->middleware('admin_finance');
 
 
 // Hutang
-Route::get('/cetak-laporan/print-hutang', [CetakController::class, 'printDebt'])->middleware('auth');
-Route::get('/cetak-laporan/pdf-hutang', [CetakController::class, 'PDFDebt'])->middleware('auth');
-Route::get('/cetak-laporan/excel-hutang', [CetakController::class, 'excelDebt'])->middleware('auth');
+Route::get('/cetak-laporan/print-hutang', [CetakController::class, 'printDebt'])->middleware('admin_finance');
+Route::get('/cetak-laporan/pdf-hutang', [CetakController::class, 'PDFDebt'])->middleware('admin_finance');
+Route::get('/cetak-laporan/excel-hutang', [CetakController::class, 'excelDebt'])->middleware('admin_finance');
 
-Route::get('/cetak-laporan/print-semua-hutang', [CetakController::class, 'printAllDebt'])->middleware('auth');
-Route::get('/cetak-laporan/pdf-semua-hutang', [CetakController::class, 'allPDFDebt'])->middleware('auth');
-Route::get('/cetak-laporan/excel-semua-hutang', [CetakController::class, 'allExcelDebt'])->middleware('auth');
+Route::get('/cetak-laporan/print-semua-hutang', [CetakController::class, 'printAllDebt'])->middleware('admin_finance');
+Route::get('/cetak-laporan/pdf-semua-hutang', [CetakController::class, 'allPDFDebt'])->middleware('admin_finance');
+Route::get('/cetak-laporan/excel-semua-hutang', [CetakController::class, 'allExcelDebt'])->middleware('admin_finance');
 
 // Gaji Karyawan
-Route::get('/cetak-print-gaji-karyawan', [CetakController::class, 'printGajiKaryawan'])->middleware('auth');
-Route::get('/cetak-pdf-gaji-karyawan', [CetakController::class, 'gajiKaryawanPDF'])->middleware('auth');
-// Route::get('/cetak-print-semua-gaji-karyawan', [CetakController::class, 'printAllGajiKaryawan'])->middleware('auth');
+Route::get('/cetak-print-gaji-karyawan', [CetakController::class, 'printGajiKaryawan'])->middleware('admin_finance');
+Route::get('/cetak-pdf-gaji-karyawan', [CetakController::class, 'gajiKaryawanPDF'])->middleware('admin_finance');
+// Route::get('/cetak-print-semua-gaji-karyawan', [CetakController::class, 'printAllGajiKaryawan'])->middleware('admin_finance');
 
-Route::get('cetak-laporan/print-gaji-karyawan', [CetakController::class, 'printSemuaGajiKaryawan'])->middleware('auth');
-Route::get('cetak-laporan/pdf-gaji-karyawan', [CetakController::class, 'PDFSemuaGajiKaryawan'])->middleware('auth');
-Route::get('cetak-laporan/excel-gaji-karyawan', [CetakController::class, 'excelSemuaGajiKaryawan'])->middleware('auth');
+Route::get('cetak-laporan/print-gaji-karyawan', [CetakController::class, 'printSemuaGajiKaryawan'])->middleware('admin_finance');
+Route::get('cetak-laporan/pdf-gaji-karyawan', [CetakController::class, 'PDFSemuaGajiKaryawan'])->middleware('admin_finance');
+Route::get('cetak-laporan/excel-gaji-karyawan', [CetakController::class, 'excelSemuaGajiKaryawan'])->middleware('admin_finance');

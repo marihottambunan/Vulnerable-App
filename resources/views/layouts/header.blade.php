@@ -1,11 +1,11 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 
     @if (auth()->user()->role_id == 1)
-        <a class="navbar-brand ps-3" href="/dashboard/admin">PT Wide Technologies</a>
+        <a class="navbar-brand ps-3" href="/dashboard/admin/{{ auth()->user()->employee_id }}">PT Wide Technologies</a>
     @elseif (auth()->user()->role_id == 2)
-        <a class="navbar-brand ps-3" href="/dashboard/finance_manager">PT Wide Technologies</a>
+        <a class="navbar-brand ps-3" href="/dashboard/finance_manager/{{ auth()->user()->employee_id }}">PT Wide Technologies</a>
     @else
-        <a class="navbar-brand ps-3" href="/dashboard/karyawan">PT Wide Technologies</a>
+        <a class="navbar-brand ps-3" href="/dashboard/karyawan/{{ auth()->user()->employee_id }}">PT Wide Technologies</a>
     @endif
 
     <!-- Sidebar Toggle-->
@@ -28,8 +28,8 @@
                 
 
                 @if (auth()->user()->role_id == 3)
-                    <li><a class="dropdown-item" href="/dashboard/karyawan/profile">My Profile</a></li>
-                    <li><a class="dropdown-item" href="/dashboard/karyawan/change-password">Ganti Password</a></li>
+                    <li><a class="dropdown-item" href="/dashboard/karyawan/profile/{{ auth()->user()->employee_id }}">My Profile</a></li>
+                    <li><a class="dropdown-item" href="/dashboard/karyawan/change-password/{{ auth()->user()->employee_id }}">Ganti Password</a></li>
                 @else
                     <li><a class="dropdown-item" href="/profile">My Profile</a></li>
                     <li><a class="dropdown-item" href="/profile/ganti-password">Ganti Password</a></li>

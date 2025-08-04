@@ -45,7 +45,7 @@
                     <h3>@currency($hutangBelumLunas)</h3>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="/dashboard/karyawan/hutang">Lihat Hutang</a>
+                    <a class="small text-white stretched-link" href="/dashboard/karyawan/hutang/{{ auth()->user()->employee_id }}">Lihat Hutang</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <h3>@currency($employee->salary->gaji_pokok + $employee->salary->tj_transport + $employee->salary->uang_makan)</h3>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="/dashboard/karyawan/gaji">Lihat Gaji</a>
+                    <a class="small text-white stretched-link" href="/dashboard/karyawan/gaji/{{ auth()->user()->employee_id }}">Lihat Gaji</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                     </h3>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="/dashboard/karyawan/gaji">Lihat Gaji</a>
+                    <a class="small text-white stretched-link" href="/dashboard/karyawan/gaji/{{ auth()->user()->employee_id }}">Lihat Gaji</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>

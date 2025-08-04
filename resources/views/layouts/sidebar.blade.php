@@ -9,17 +9,17 @@
 
                 {{-- Jika bukan Admin maka linknya berbeda --}}
                 @if (auth()->user()->role_id == 1)
-                    <a class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}" href="/dashboard/admin">
+                    <a class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}" href="/dashboard/admin/{{ auth()->user()->employee_id }}">
                         <div class="sb-nav-link-icon"><i class="fa-fw fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
                 @elseif (auth()->user()->role_id == 2)
-                    <a class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}" href="/dashboard/finance_manager">
+                    <a class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}" href="/dashboard/finance_manager/{{ auth()->user()->employee_id }}">
                         <div class="sb-nav-link-icon"><i class="fa-fw fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
                 @else
-                    <a class="nav-link {{ Request::is('dashboard/karyawan') ? 'active' : '' }}" href="/dashboard/karyawan">
+                    <a class="nav-link {{ Request::is('dashboard/karyawan*') ? 'active' : '' }}" href="/dashboard/karyawan/{{ auth()->user()->employee_id }}">
                         <div class="sb-nav-link-icon"><i class="fa-fw fas fa-tachometer-alt"></i></div>
                         Dashboard Karyawan
                     </a>
@@ -93,19 +93,19 @@
                     {{-- MENU KARYAWAN --}}
                     <div class="ms-3 mt-3 fs-6 fw-bold {{ Request::is('dashboard/karyawan/profile*') || Request::is('dashboard/karyawan/gaji*') || Request::is('dashboard/karyawan/hutang*') || Request::is('dashboard/karyawan/ganti-password*')  ? 'text-light' : '' }}">MENU</div>
 
-                    <a class="nav-link {{ Request::is('dashboard/karyawan/profile*') ? 'active' : '' }}" href="/dashboard/karyawan/profile">
+                    <a class="nav-link {{ Request::is('dashboard/karyawan/profile*') ? 'active' : '' }}" href="/dashboard/karyawan/profile/{{ auth()->user()->employee_id }}">
                         <div class="sb-nav-link-icon"><i class="fa-fw fa fa-user"></i></div>
                         My Profile
                     </a>
-                    <a class="nav-link {{ Request::is('dashboard/karyawan/gaji') ? 'active' : '' }}" href="/dashboard/karyawan/gaji">
+                    <a class="nav-link {{ Request::is('dashboard/karyawan/gaji') ? 'active' : '' }}" href="/dashboard/karyawan/gaji/{{ auth()->user()->employee_id }}">
                         <div class="sb-nav-link-icon"><i class="fa-fw fas fa-sack-dollar"></i></div>
                         Gaji Saya
                     </a>
-                    <a class="nav-link {{ Request::is('dashboard/karyawan/hutang*') ? 'active' : '' }}" href="/dashboard/karyawan/hutang">
+                    <a class="nav-link {{ Request::is('dashboard/karyawan/hutang*') ? 'active' : '' }}" href="/dashboard/karyawan/hutang/{{ auth()->user()->employee_id }}">
                         <div class="sb-nav-link-icon"><i class="fa-fw fas fa-credit-card"></i></div>
                         Pinjam Hutang
                     </a>
-                    <a class="nav-link {{ Request::is('dashboard/karyawan/change-password*') ? 'active' : '' }}" href="/dashboard/karyawan/change-password">
+                    <a class="nav-link {{ Request::is('dashboard/karyawan/change-password*') ? 'active' : '' }}" href="/dashboard/karyawan/change-password/{{ auth()->user()->employee_id }}">
                         <div class="sb-nav-link-icon"><i class="fa-fw fas fa-lock"></i></div>
                         Ganti Password
                     </a>

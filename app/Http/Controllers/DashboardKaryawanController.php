@@ -18,14 +18,15 @@ class DashboardKaryawanController extends Controller
     public function index($id)
     {
 
-        if (auth()->user()->employee_id != $id) {
-        abort(403, 'Akses ditolak');
+    // Hanya user dengan role_id 3 (finance_manager) yang boleh akses
+    if (auth()->user()->employee_id != $id) {
+        abort(403, 'Akses Ditolak');
     }
         return view('dashboard-karyawan.index', [
             'title'          => 'Dashboard Karyawan',
-            'employee'       => Employee::find($id),
-            'employeeSalary' => EmployeeSalary::where('karyawan_id', $id)->get(),
-            'employeeDebts'  => Debt::where('employee_id', $id)->get()
+            'employee'       => Employee::find(auth()->user()->employee_id),
+            'employeeSalary' => EmployeeSalary::where('karyawan_id', auth()->user()->employee_id)->get(),
+            'employeeDebts'  => Debt::where('employee_id', auth()->user()->employee_id)->get()
         ]);
     }
 
@@ -35,11 +36,14 @@ class DashboardKaryawanController extends Controller
      * Method Controller untuk Menu Profile Karyawan
      * 
      */
-    public function myProfile()
+    public function myProfile($id)
     {
+        if (auth()->user()->employee_id != $id) {
+            abort(403, 'Akses Ditolak');
+        }
         return view('dashboard-karyawan.profile', [
             'title'     => 'Dashboard Karyawan | Profile',
-            'employee'  => Employee::find(auth()->user()->employee_id)
+            'employee'  => Employee::find($id)
         ]);
     }
 
@@ -101,14 +105,16 @@ class DashboardKaryawanController extends Controller
     /**
      * Method Controller untuk Menu Gaji Saya
      */
-    public function mySalary()
+    public function mySalary($id)
     {
-        // $employee = Employee::find(auth()->user()->id);
+        if (auth()->user()->employee_id != $id) {
+        abort(403, 'Akses Ditolak');
+    }
 
-        return view('dashboard-karyawan.salary', [
-            'title'             => 'Dashboard Karyawan | Gaji',
-            'employeeSalary'    => EmployeeSalary::where('karyawan_id', auth()->user()->employee_id)->get()
-        ]);
+    return view('dashboard-karyawan.salary', [
+        'title'             => 'Dashboard Karyawan | Gaji',
+        'employeeSalary'    => EmployeeSalary::where('karyawan_id', $id)->get()
+    ]);
     }
 
 
@@ -116,12 +122,16 @@ class DashboardKaryawanController extends Controller
      * Method Controller untuk menu Pinjam Hutang
      * 
      */
-    public function myDebt()
+    public function myDebt($id)
     {
-        return view('dashboard-karyawan.debt', [
-            'title'         => 'Dashboard Karyawan | Hutang',
-            'employeeDebts' => Debt::where('employee_id', auth()->user()->employee_id)->get()
-        ]);
+       if (auth()->user()->employee_id != $id) {
+        abort(403, 'Akses Ditolak');
+    }
+
+    return view('dashboard-karyawan.debt', [
+        'title'         => 'Dashboard Karyawan | Hutang',
+        'employeeDebts' => Debt::where('employee_id', $id)->get()
+    ]);
     }
 
     public function pinjam(Request $request)
@@ -137,11 +147,15 @@ class DashboardKaryawanController extends Controller
             'status'            => 2
         ]);
 
-        return redirect('/dashboard/karyawan/hutang')->with('success', 'Hutang berhasil diajukan');
+        return redirect('/dashboard/karyawan/hutang/'. auth()->user()->employee_id)->with('success', 'Hutang berhasil diajukan');
     }
 
-    public function editPassword()
+    public function editPassword($id)
     {
+        if (auth()->user()->employee_id != $id) {
+            abort(403, 'Akses Ditolak');
+        }
+  
         return view('dashboard-karyawan.change-password', [
             'title' => 'Ganti Password Karyawan',
             // 'users' => Employee::find(auth()->user()->employee_id)
