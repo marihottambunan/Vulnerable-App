@@ -74,7 +74,7 @@ class DashboardKaryawanController extends Controller
         ];
 
         Employee::where('id', auth()->user()->employee_id)->update($data);
-        return redirect('/dashboard/karyawan/profile')->with('success', 'Biodata berhasil diubah');
+        return redirect('/dashboard/karyawan/profile/'. auth()->user()->employee_id)->with('success', 'Biodata berhasil diubah');
     }
 
     public function editAccount()
@@ -98,7 +98,7 @@ class DashboardKaryawanController extends Controller
 
         // update tabel user dimana id = id user yang sedang login
         User::where('id', auth()->user()->id)->update($data);
-        return redirect('/dashboard/karyawan/profile')->with('success', 'Informasi Akun berhasil diubah');
+        return redirect('/dashboard/karyawan/profile/'. auth()->user()->employee_id)->with('success', 'Informasi Akun berhasil diubah');
     }
 
 

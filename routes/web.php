@@ -60,14 +60,14 @@ Route::post('/dashboard/karyawan/change-password/', [DashboardKaryawanController
  * Route Profile & Ganti Password (Admin & finance_manager)
  * 
  */
-Route::get('/profile', [AdminController::class, 'profile'])->middleware('auth');
-Route::get('/profile/edit-account', [AdminController::class, 'editAccount'])->middleware('auth');
-Route::get('/profile/edit-biodata', [AdminController::class, 'editBiodata'])->middleware('auth');
-Route::post('/profile/edit-account', [AdminController::class, 'updateAccount'])->middleware('auth');
-Route::post('/profile/edit-biodata', [AdminController::class, 'updateBiodata'])->middleware('auth');
+Route::get('/profile', [AdminController::class, 'profile'])->middleware('admin_finance');
+Route::get('/profile/edit-account', [AdminController::class, 'editAccount'])->middleware('admin_finance');
+Route::get('/profile/edit-biodata', [AdminController::class, 'editBiodata'])->middleware('admin_finance');
+Route::post('/profile/edit-account', [AdminController::class, 'updateAccount'])->middleware('admin_finance');
+Route::post('/profile/edit-biodata', [AdminController::class, 'updateBiodata'])->middleware('admin_finance');
 
-Route::get('/profile/ganti-password', [AdminController::class, 'editPassword'])->middleware('auth');
-Route::post('/profile/ganti-password', [AdminController::class, 'updatePassword'])->middleware('auth');
+Route::get('/profile/ganti-password', [AdminController::class, 'editPassword'])->middleware('admin_finance');
+Route::post('/profile/ganti-password', [AdminController::class, 'updatePassword'])->middleware('admin_finance');
 
 
 /*

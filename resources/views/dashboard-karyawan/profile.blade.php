@@ -47,7 +47,7 @@
 
                         <div class="text-center mt-1">
                             <hr>
-                            <a href="/dashboard/karyawan/profile/edit-account" class="btn btn-sm btn-primary mb-1">Edit Informasi Akun</a>
+                            <a href="/dashboard/karyawan/profile/edit-account/{{ auth()->user()->employee_id }}" class="btn btn-sm btn-primary mb-1">Edit Informasi Akun</a>
                         </div>
                         
                     </div>
@@ -118,7 +118,7 @@
 
                         <div class="text-center mt-1">
                             <hr>
-                            <a href="/dashboard/karyawan/profile/edit-biodata" class="btn btn-sm btn-primary mb-1">Edit Biodata Saya</a>
+                            <a href="/dashboard/karyawan/profile/edit-biodata/{{ auth()->user()->employee_id }}" class="btn btn-sm btn-primary mb-1">Edit Biodata Saya</a>
                         </div>
                     </div>
 
