@@ -13,9 +13,12 @@ use Carbon\Carbon;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-
+        // Hanya user dengan role_id 1 (admin) yang boleh akses
+        if (auth()->user()->employee_id != $id) {
+        abort(403, 'Akses Ditolak');
+        }
         // Income - Pemasukan - Pendapatan
         $dailyIncome = Income::whereDate('tanggal', Carbon::today())->sum('nominal');
         $weeklyIncome = Income::whereBetween('tanggal', [

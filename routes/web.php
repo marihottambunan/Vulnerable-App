@@ -79,7 +79,7 @@ Route::post('/profile/ganti-password', [AdminController::class, 'updatePassword'
 */
 
 Route::resource('/users', UserController::class)->middleware('admin');
-Route::resource('/kategori', KategoriController::class)->middleware('admin');
+Route::resource('/kategori', KategoriController::class)->middleware('admin_finance');
 Route::resource('/data/pemasukan', IncomeController::class)->middleware('admin_finance');
 Route::resource('/data/pengeluaran', OutcomeController::class)->middleware('admin_finance');
 Route::resource('/hutang', DebtController::class)->middleware('admin_finance');
