@@ -25,6 +25,12 @@ class Employee extends Model
         return $this->belongsTo(Salary::class, 'salary_id');
     }
 
+     // Relasi ke employee_salaries
+    public function salaries()
+    {
+        return $this->hasMany(EmployeeSalary::class, 'karyawan_id');
+    }
+
     public function user()
     {
         return $this->hasOne(User::class);

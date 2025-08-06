@@ -15,9 +15,9 @@ class PegawaiController extends Controller
     {
 
      // Hanya user dengan role_id 2 (finance_manager) yang boleh akses
-    if (auth()->user()->role_id !== 2 || auth()->user()->employee_id != $id) {
-        abort(403, 'Akses ditolak');
-    }
+    // if (auth()->user()->role_id !== 2 || auth()->user()->employee_id != $id) {
+    //     abort(403, 'Akses ditolak');
+    // }
 
     
         // Income - Pemasukan - Pendapatan

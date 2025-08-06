@@ -34,18 +34,36 @@ class DashboardKaryawanController extends Controller
 
     /**
      * Method Controller untuk Menu Profile Karyawan
-     * 
      */
     public function myProfile($id)
+{
+    if (auth()->user()->employee_id != $id) {
+        abort(403, 'Akses Ditolak');
+    }
+    
+    // Hanya mengirim URL API ke view
+    return view('dashboard-karyawan.profile', [
+        'title'         => 'Dashboard Karyawan | Profile',
+        'apiProfileUrl' => url('/api/dashboard/karyawan/profile/' . $id)
+    ]);
+}
+
+    /**
+     * Method Controller untuk Menu Gaji Saya
+     */
+    public function mySalary($id)
     {
         if (auth()->user()->employee_id != $id) {
             abort(403, 'Akses Ditolak');
         }
-        return view('dashboard-karyawan.profile', [
-            'title'     => 'Dashboard Karyawan | Profile',
-            'employee'  => Employee::find($id)
+
+        // Hanya mengirim URL API ke view
+        return view('dashboard-karyawan.salary', [
+            'title'        => 'Dashboard Karyawan | Gaji',
+            'apiSalaryUrl' => url('/api/dashboard/karyawan/gaji/' . $id)
         ]);
     }
+
 
     public function editBiodata()
     {
@@ -102,20 +120,6 @@ class DashboardKaryawanController extends Controller
     }
 
 
-    /**
-     * Method Controller untuk Menu Gaji Saya
-     */
-    public function mySalary($id)
-    {
-        if (auth()->user()->employee_id != $id) {
-        abort(403, 'Akses Ditolak');
-    }
-
-    return view('dashboard-karyawan.salary', [
-        'title'             => 'Dashboard Karyawan | Gaji',
-        'employeeSalary'    => EmployeeSalary::where('karyawan_id', $id)->get()
-    ]);
-    }
 
 
     /**
