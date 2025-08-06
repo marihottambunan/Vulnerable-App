@@ -29,15 +29,44 @@ class DashboardKaryawanController extends Controller
 
     /**
      * Method Controller untuk Menu Profile Karyawan
-     * 
      */
+<<<<<<< Updated upstream
     public function myProfile()
     {
         return view('dashboard-karyawan.profile', [
             'title'     => 'Dashboard Karyawan | Profile',
             'employee'  => Employee::find(auth()->user()->employee_id)
+=======
+    public function myProfile($id)
+{
+    if (auth()->user()->employee_id != $id) {
+        abort(403, 'Akses Ditolak');
+    }
+    
+    // Hanya mengirim URL API ke view
+    return view('dashboard-karyawan.profile', [
+        'title'         => 'Dashboard Karyawan | Profile',
+        'apiProfileUrl' => url('/api/dashboard/karyawan/profile/' . $id)
+    ]);
+}
+
+    /**
+     * Method Controller untuk Menu Gaji Saya
+     */
+    public function mySalary($id)
+    {
+        if (auth()->user()->employee_id != $id) {
+            abort(403, 'Akses Ditolak');
+        }
+
+        // Hanya mengirim URL API ke view
+        return view('dashboard-karyawan.salary', [
+            'title'        => 'Dashboard Karyawan | Gaji',
+            'apiSalaryUrl' => url('/api/dashboard/karyawan/gaji/' . $id)
+>>>>>>> Stashed changes
         ]);
     }
+
 
     public function editBiodata()
     {
@@ -94,6 +123,7 @@ class DashboardKaryawanController extends Controller
     }
 
 
+<<<<<<< Updated upstream
     /**
      * Method Controller untuk Menu Gaji Saya
      */
@@ -106,6 +136,8 @@ class DashboardKaryawanController extends Controller
             'employeeSalary'    => EmployeeSalary::where('karyawan_id', auth()->user()->employee_id)->get()
         ]);
     }
+=======
+>>>>>>> Stashed changes
 
 
     /**

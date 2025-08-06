@@ -13,7 +13,6 @@
     </nav>
     {{-- End Breadcrumb --}}
 
-    
     {{-- Card --}}
     <div class="card mb-4">
         <div class="card-header">
@@ -21,51 +20,92 @@
             Daftar Gaji-Gaji Saya
         </div>
         <div class="card-body">
-
-
-            {{-- Table --}}
-            <table id="datatablesSimple" class="table table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Tanggal</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Jabatan</th>
-                        <th scope="col">Total Gaji</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {{-- @dd($employeeSalary) --}}
-
-                    @php
-                        $salary = 0;
-                    @endphp
-                    @foreach ($employeeSalary as $row)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ date('d-M-Y', strtotime($row->tgl_gajian)); }}</td>
-                        <td>{{ $row->employee->nama }}</td>
-                        <td>{{ $row->salary->jabatan }}</td>
-                        <td>@currency($row->salary->gaji_pokok + $row->salary->tj_transport + $row->salary->uang_makan)</td>
-                        
-                        @php
-                            $salary += $row->salary->gaji_pokok + $row->salary->tj_transport + $row->salary->uang_makan;
-                        @endphp
-                    </tr>
-                    @endforeach
-                    
-                    
-                </tbody>
-            </table>
-            {{-- End Table --}}
-
-            <div class="h6 text-end">Total Keseluruhan Gaji Yang Kamu Terima: @currency($salary)</div>
+            <div id="salaryTable">
+                {{-- Data akan diisi oleh JavaScript --}}
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p>Memuat data gaji...</p>
+                </div>
+            </div>
         </div>
     </div>
     {{-- End Card --}}
 </div>
 
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('{{ $apiSalaryUrl }}')
+            .then(response => {
+                if (!response.ok) throw new Error('Gagal memuat data');
+                return response.json();
+            })
+            .then(data => {
+                if (data.data && data.data.length > 0) {
+                    let tableHTML = `
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Jabatan</th>
+                                    <th>Gaji Pokok</th>
+                                    <th>Tunjangan</th>
+                                    <th>Uang Makan</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                    data.data.forEach((item, index) => {
+                        tableHTML += `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${new Date(item.tgl_gajian).toLocaleDateString('id-ID')}</td>
+                                <td>${item.jabatan}</td>
+                                <td>${formatCurrency(item.gaji_pokok)}</td>
+                                <td>${formatCurrency(item.tunjangan_transport)}</td>
+                                <td>${formatCurrency(item.uang_makan)}</td>
+                                <td>${formatCurrency(item.total_gaji)}</td>
+                            </tr>
+                        `;
+                    });
+
+                    tableHTML += `
+                            </tbody>
+                        </table>
+                        <div class="text-end fw-bold mt-3">
+                            Total Keseluruhan: ${formatCurrency(data.total_keseluruhan)}
+                        </div>
+                    `;
+
+                    document.getElementById('salaryTable').innerHTML = tableHTML;
+                } else {
+                    document.getElementById('salaryTable').innerHTML = `
+                        <div class="alert alert-info">Belum ada data gaji</div>
+                    `;
+                }
+            })
+            .catch(error => {
+                document.getElementById('salaryTable').innerHTML = `
+                    <div class="alert alert-danger">
+                        ${error.message}
+                    </div>
+                `;
+            });
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+    });
+</script>
+@endsection
 
 @endsection
